@@ -1,0 +1,36 @@
+/* pages/main-music/main-music.wxss */
+page{
+  box-sizing: border-box;
+  padding: 0 24rpx;
+  background-color: #fafafa;
+  --search-padding: 10px 0;
+}
+
+/* 轮播图 */
+.banner{
+  border-radius: 12rpx;
+  overflow: hidden;
+  /* height: 111px; */
+}
+.banner-image{
+  width: 100%;
+  border-radius: 12rpx;
+}
+
+/* 歌单 */
+.list{
+  /* display: flex; */
+  margin-left: -24rpx;
+  white-space: nowrap;
+  
+}
+.list .item{
+  display: inline-block;
+  /* flex-shrink: 0; */
+  width: 220rpx;
+  margin-left: 24rpx;
+}
+
+.list .item:last-of-type {
+  margin-right: 24rpx;
+}

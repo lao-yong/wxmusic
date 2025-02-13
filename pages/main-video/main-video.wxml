@@ -1,0 +1,11 @@
+<!--pages/main-video/main-video.wxml-->
+<view class="video-list">
+  <block wx:for="{{videoList}}" wx:key="id">
+    <video-item
+     bind:tap="onVideoItemTap"
+    class="item"
+    itemData="{{item}}"
+    data-item="{{item}}"
+    />
+  </block>
+</view>

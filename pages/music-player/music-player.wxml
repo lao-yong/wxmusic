@@ -1,0 +1,64 @@
+<!--pages/music-player/music-player.wxml-->
+<wxs src="/utils/format.wxs" module="fmt"/>
+<!-- 背景展示 -->
+<image class="bg-image" src="{{currentSong.al.picUrl}}" mode="aspectFill"/>
+<view class="bg-cover"></view>
+
+<!-- 自定义导航栏 -->
+<nav-bar bind:leftclick="onNavBackTap">
+  <view class="tabs" slot="center">
+    <view class="item {{currentPage === 0? 'active': ''}}" bind:tap="onNavTabItemTab" data-index="{{0}}">歌曲</view>
+    <view class="divder">|</view>
+    <view class="item {{currentPage === 1? 'active': ''}}" bind:tap="onNavTabItemTab" data-index="{{1}}">歌词</view>
+  </view>
+</nav-bar>
+
+<!-- 具体内容· -->
+<swiper bindchange="onSwiperChange" style="height: {{contentHeight}}px;"
+current="{{currentPage}}">
+  <swiper-item class="music">
+    <view class="album">
+    <image class="image" src="{{currentSong.al.picUrl}}" mode="widthFix"/>
+    </view>
+    <view class="info">
+      <view class="name">{{currentSong.name}}</view>
+      <view class="singer">{{currentSong.ar[0].name}}</view>
+    </view>
+    <view class="lyric">
+      {{currentLyricText}}
+    </view>
+    <view class="progress">
+      <slider class="slider" block-size="12" value="{{sliderValue}}" bindchange="onSliderChannge"
+      bindchanging="onSliderChanging"
+      selected-color="#ff8189"
+      />
+      <view class="time">
+        <view class="current">{{fmt.formatTime(currentTime)}}</view>
+        <view class="duration">{{fmt.formatTime(durationTime)}}</view>
+      </view>
+    </view>
+    <view class="control">
+      <image class="btn mode" src="/assets/mode.png"/>
+      <image class="btn prev" src="/assets/pre.png"/>
+      <image class="btn play" src="/assets/play_{{ isPlaying ? 'pause' : 'stop'}}.png" bind:tap="onPlayOrpause"/>
+      <image class="btn next" src="/assets/nex.png" />
+      <image class="btn list" src="/assets/music-list.png"/>
+    </view>
+  </swiper-item>
+  <swiper-item>
+    <scroll-view class="lyric-list"
+                  scroll-y
+                  scroll-top="{{lyricScrollTop}}"
+                  scroll-with-animation
+                  >
+      <block wx:for="{{lyricInfos}}" wx:key="time">
+        <view
+         class="item {{currentLiricIndex === index ? 'active' : ''}}"
+         style="padding-top: {{index === 0 ? (contentHeight/2-80) : 0}}px;padding-bottom: {{index === lyricInfos.length - 1 ? (contentHeight/2) : 0}}px;"
+         >{{item.text}}
+         </view>
+      </block>
+    </scroll-view>
+  
+  </swiper-item>
+</swiper>
